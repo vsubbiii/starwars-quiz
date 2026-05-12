@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  color: white;
+  background-image: url("https://images3.alphacoders.com/865/865820.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.quiz-box {
+  background: rgba(0,0,0,0.75);
+  width: 360px;
+  margin: 60px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#submitBtn { background: gold; }
+#tryBtn { background: lightgray; }
+#musicBtn { background: lightblue; }
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+<h2>Star Wars Quiz</h2>
+
+<p>1. Who is Luke Skywalker’s father?</p>
+<input type="radio" name="q1" value="wrong"> Obi-Wan Kenobi<br>
+<input type="radio" name="q1" value="correct"> Darth Vader<br>
+<input type="radio" name="q1" value="wrong"> Han Solo<br>
+
+<p>2. What species is Chewbacca?</p>
+<input type="radio" name="q2" value="wrong"> Ewok<br>
+<input type="radio" name="q2" value="correct"> Wookiee<br>
+<input type="radio" name="q2" value="wrong"> Droid<br>
+
+<p>3. Who trained Anakin Skywalker?</p>
+<input type="radio" name="q3" value="wrong"> Yoda<br>
+<input type="radio" name="q3" value="correct"> Obi-Wan Kenobi<br>
+<input type="radio" name="q3" value="wrong"> Palpatine<br>
+
+<button id="submitBtn" onclick="checkAnswers()">Submit</button>
+<button id="tryBtn" onclick="resetQuiz()">Try Again</button>
+<button id="musicBtn" onclick="toggleMusic()">KENOBIIIIII (click it)</button>
+
+<p id="result"></p>
+
+</div>
+
+<!-- 🎵 Background Music (free sample track) -->
+<audio id="bgMusic" loop>
+  <source src="Duel of the Fates - John Williams.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let musicPlaying = false;
+
+function toggleMusic() {
+  let music = document.getElementById("bgMusic");
+
+  if (!musicPlaying) {
+    music.play();
+    musicPlaying = true;
+    document.getElementById("musicBtn").innerText = "Pause Music";
+  } else {
+    music.pause();
+    musicPlaying = false;
+    document.getElementById("musicBtn").innerText = "Play Music";
+  }
+}
+
+function checkAnswers() {
+  let score = 0;
+
+  let q1 = document.querySelector('input[name="q1"]:checked');
+  let q2 = document.querySelector('input[name="q2"]:checked');
+  let q3 = document.querySelector('input[name="q3"]:checked');
+
+  if (q1 && q1.value === "correct") score++;
+  if (q2 && q2.value === "correct") score++;
+  if (q3 && q3.value === "correct") score++;
+
+  document.getElementById("result").innerText =
+    "You got " + score + " / 3 correct!";
+}
+
+function resetQuiz() {
+  document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+  document.getElementById("result").innerText = "";
+}
+
+</script>
+
+</body>
+</html>
